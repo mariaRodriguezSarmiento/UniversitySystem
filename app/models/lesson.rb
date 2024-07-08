@@ -1,8 +1,8 @@
 class Lesson < ApplicationRecord
-
+  belongs_to :user
   belongs_to :teacher
   belongs_to :lounge
-  has_many :lesson_students
+  has_many :lesson_students, dependent: :destroy
   has_many :students, through: :lesson_students
 
   validates :name, presence: true
@@ -19,7 +19,7 @@ class Lesson < ApplicationRecord
   validate :student_has_no_conflicting_lesson
 
   MAX_STUDENTS = 30 
-  
+
   private
 
   def validate_time_range

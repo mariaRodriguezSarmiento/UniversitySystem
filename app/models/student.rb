@@ -1,4 +1,6 @@
 class Student < ApplicationRecord
+    belongs_to :user
+
     has_many :lesson_students
     has_many :lessons, through: :lesson_students
   

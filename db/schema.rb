@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_08_010213) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_08_154624) do
   create_table "lesson_students", force: :cascade do |t|
     t.integer "lesson_id", null: false
     t.integer "student_id", null: false
@@ -32,8 +32,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_010213) do
     t.integer "lounge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["lounge_id"], name: "index_lessons_on_lounge_id"
     t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
+    t.index ["user_id"], name: "index_lessons_on_user_id"
   end
 
   create_table "lounges", force: :cascade do |t|
@@ -41,6 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_010213) do
     t.integer "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_lounges_on_user_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -50,6 +54,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_010213) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_students_on_user_id"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -59,6 +65,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_010213) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_teachers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,4 +88,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_010213) do
   add_foreign_key "lesson_students", "students"
   add_foreign_key "lessons", "lounges"
   add_foreign_key "lessons", "teachers"
+  add_foreign_key "lessons", "users"
+  add_foreign_key "lounges", "users"
+  add_foreign_key "students", "users"
+  add_foreign_key "teachers", "users"
 end

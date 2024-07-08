@@ -1,4 +1,6 @@
 class Teacher < ApplicationRecord
+    belongs_to :user
+
     has_many :lessons
 
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
