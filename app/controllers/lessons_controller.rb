@@ -14,7 +14,7 @@ class LessonsController < ApplicationController
 
   # GET /lessons/new
   def new
-    @lesson = Lesson.new
+    @lesson = current_user.lessons.build  # Asocia la nueva lección con el usuario actual
   end
 
   # GET /lessons/1/edit
@@ -23,11 +23,11 @@ class LessonsController < ApplicationController
 
   # POST /lessons or /lessons.json
   def create
-    @lesson = Lesson.new(lesson_params)
+    @lesson = current_user.lessons.build(lesson_params)
 
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to lesson_url(@lesson), notice: "Lesson was successfully created." }
+        format.html { redirect_to @lesson, notice: "Lesson was successfully created." }
         format.json { render :show, status: :created, location: @lesson }
       else
         format.html { render :new, status: :unprocessable_entity }

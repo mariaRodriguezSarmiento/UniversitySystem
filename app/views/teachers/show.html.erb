@@ -1,6 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @teacher %>
+<p>
+  <strong>Created by:</strong>
+  <%= @student.teacher.full_name %>
+</p>
 
 <div>
   <%= link_to "Edit this teacher", edit_teacher_path(@teacher) %> |

@@ -12,7 +12,7 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
-    @student = Student.new
+    @student = current_user.students.build  # Asocia el nuevo estudiante con el usuario actual
   end
 
   # GET /students/1/edit
@@ -21,11 +21,11 @@ class StudentsController < ApplicationController
 
   # POST /students or /students.json
   def create
-    @student = Student.new(student_params)
+    @student = current_user.students.build(student_params)
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
+        format.html { redirect_to @student, notice: "Student was successfully created." }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,7 +33,6 @@ class StudentsController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /students/1 or /students/1.json
   def update
     respond_to do |format|

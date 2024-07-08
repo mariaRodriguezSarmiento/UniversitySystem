@@ -12,7 +12,7 @@ class LoungesController < ApplicationController
 
   # GET /lounges/new
   def new
-    @lounge = Lounge.new
+    @lounge = current_user.lounges.build  # Asocia el nuevo salón con el usuario actual
   end
 
   # GET /lounges/1/edit
@@ -21,11 +21,11 @@ class LoungesController < ApplicationController
 
   # POST /lounges or /lounges.json
   def create
-    @lounge = Lounge.new(lounge_params)
+    @lounge = current_user.lounges.build(lounge_params)
 
     respond_to do |format|
       if @lounge.save
-        format.html { redirect_to lounge_url(@lounge), notice: "Lounge was successfully created." }
+        format.html { redirect_to @lounge, notice: "Lounge was successfully created." }
         format.json { render :show, status: :created, location: @lounge }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,7 +33,6 @@ class LoungesController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /lounges/1 or /lounges/1.json
   def update
     respond_to do |format|

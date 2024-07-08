@@ -12,7 +12,7 @@ class TeachersController < ApplicationController
 
   # GET /teachers/new
   def new
-    @teacher = Teacher.new
+    @teacher = current_user.teachers.build  # Asocia el nuevo profesor con el usuario actual
   end
 
   # GET /teachers/1/edit
@@ -21,11 +21,11 @@ class TeachersController < ApplicationController
 
   # POST /teachers or /teachers.json
   def create
-    @teacher = Teacher.new(teacher_params)
+    @teacher = current_user.teachers.build(teacher_params)
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to teacher_url(@teacher), notice: "Teacher was successfully created." }
+        format.html { redirect_to @teacher, notice: "Teacher was successfully created." }
         format.json { render :show, status: :created, location: @teacher }
       else
         format.html { render :new, status: :unprocessable_entity }

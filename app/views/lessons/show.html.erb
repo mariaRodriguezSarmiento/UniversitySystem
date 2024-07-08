@@ -1,7 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @lesson %>
-
+<p>
+  <strong>Created by:</strong>
+  <%= @lesson.user.full_name %>
+</p>
 
 <div>
   <h2>Students Enrolled</h2>

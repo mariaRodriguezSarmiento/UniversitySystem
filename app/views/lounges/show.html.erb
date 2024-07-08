@@ -1,7 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @lounge %>
-
+<p>
+  <strong>Created by:</strong>
+  <%= @lounge.user.full_name %>
+</p>
 <div>
   <%= link_to "Edit this lounge", edit_lounge_path(@lounge) %> |
   <%= link_to "Back to lounges", lounges_path %>
