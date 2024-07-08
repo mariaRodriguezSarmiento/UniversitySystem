@@ -1,5 +1,5 @@
 class Lesson < ApplicationRecord
-  
+
   belongs_to :teacher
   belongs_to :lounge
   has_many :lesson_students
@@ -14,7 +14,12 @@ class Lesson < ApplicationRecord
   validate :validate_time_range
   validate :validate_teacher_schedule
   validate :validate_lounge_availability
+  validates :teacher_id, presence: true, numericality: { only_integer: true }
+  validate :teacher_exists
+  validate :student_has_no_conflicting_lesson
 
+  MAX_STUDENTS = 30 
+  
   private
 
   def validate_time_range
@@ -52,5 +57,13 @@ class Lesson < ApplicationRecord
 
     overlapping_lessons.exists?
   end
-  
+  def teacher_exists
+    errors.add(:teacher_id, 'does not exist') unless Teacher.exists?(teacher_id)
+  end
+
+  def student_has_no_conflicting_lesson
+    if students.any? { |student| student.has_conflicting_lesson?(self) }
+      errors.add(:base, "A student cannot take more than one lesson at the same time")
+    end
+  end
 end

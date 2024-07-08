@@ -1,5 +1,5 @@
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: %i[ show edit update destroy ]
+  before_action :set_lesson, only: [:show, :edit, :update, :destroy, :new_student, :create_student]
 
   # GET /lessons or /lessons.json
   def index
@@ -8,6 +8,8 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1 or /lessons/1.json
   def show
+    @lesson = Lesson.find(params[:id])
+    @students = @lesson.students  # Obtener los estudiantes inscritos en la lección
   end
 
   # GET /lessons/new
@@ -57,14 +59,36 @@ class LessonsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lesson
-      @lesson = Lesson.find(params[:id])
+  # GET /lessons/1/new_student
+  def new_student
+    @lesson = Lesson.find(params[:id])
+    @students = Student.all
+    @lesson_student = @lesson.lesson_students.new  # Para inicializar el objeto LessonStudent
+  end
+  # POST /lessons/1/create_student
+  def create_student
+    @lesson = Lesson.find(params[:id])
+    @lesson_student = @lesson.lesson_students.new(student_params)
+  
+    if @lesson_student.save
+      redirect_to lesson_path(@lesson), notice: 'Student added successfully.'
+    else
+      @students = Student.all  # Si hay errores, asegúrate de volver a cargar la lista de estudiantes
+      render :new_student
     end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def lesson_params
-      params.require(:lesson).permit(:name, :code, :start_date, :end_date, :start_time, :end_time, :teacher_id, :lounge_id)
-    end
+  private
+
+  def set_lesson
+    @lesson = Lesson.find(params[:id])
+  end
+
+  def lesson_params
+    params.require(:lesson).permit(:name, :code, :start_date, :end_date, :start_time, :end_time, :teacher_id, :lounge_id)
+  end
+
+  def student_params
+    params.require(:lesson_student).permit(:student_id)
+  end
 end

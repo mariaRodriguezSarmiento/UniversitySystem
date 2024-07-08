@@ -1,0 +1,13 @@
+<!-- app/views/lessons/new_student.html.erb -->
+<h1>Add Student to Lesson: <%= @lesson.name %></h1>
+
+<%= form_with(model: [@lesson, @lesson_student], url: create_student_lesson_path(@lesson), method: :post) do |form| %>
+  <div class="field">
+    <%= form.label :student_id, "Select Student" %><br>
+    <%= form.collection_select :student_id, @students, :id, :full_name, prompt: "Select Student" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Add Student' %>
+  </div>
+<% end %>
