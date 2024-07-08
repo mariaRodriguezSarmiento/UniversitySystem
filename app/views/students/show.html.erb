@@ -5,6 +5,16 @@
   <strong>Created by:</strong>
   <%= @student.user.full_name %>
 </p>
+
+<h2>Lessons:</h2>
+<ul>
+  <% @student.lessons.each do |lesson| %>
+    <li>
+      <%= lesson.name %>
+    </li>
+  <% end %>
+</ul> 
+
 <div>
   <%= link_to "Edit this student", edit_student_path(@student) %> |
   <%= link_to "Back to students", students_path %>
