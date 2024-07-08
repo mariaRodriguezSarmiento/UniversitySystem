@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  code: MyString
+  start_date: 2024-07-07
+  end_date: 2024-07-07
+  start_time: 2024-07-07 20:02:13
+  end_time: 2024-07-07 20:02:13
+  teacher: one
+  lounge: one
+
+two:
+  name: MyString
+  code: MyString
+  start_date: 2024-07-07
+  end_date: 2024-07-07
+  start_time: 2024-07-07 20:02:13
+  end_time: 2024-07-07 20:02:13
+  teacher: two
+  lounge: two

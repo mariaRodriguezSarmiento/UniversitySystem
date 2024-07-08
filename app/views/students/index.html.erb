@@ -1,8 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Students</h1>
-<%= link_to "Volver al home", pages_home_path, class: "btn btn-primary" %>
-<div id="students">
+<%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %><div id="students">
   <% @students.each do |student| %>
     <%= render student %>
     <p>

@@ -1,8 +1,16 @@
-<h1>HOME</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<h1>Inicio</h1>
+<p>Sistema de gestión universitario</p>
 
 <%= link_to "Profesores", teachers_path, class: "btn btn-primary" %>
 <hr>
 <%= link_to "Estudiantes", students_path, class: "btn btn-primary" %>
 <hr>
 <%= link_to "Salones", lounges_path, class: "btn btn-primary" %>
+
+<br>
+<hr>
+<% if user_signed_in? %>
+  <%= form_for(current_user, url: destroy_user_session_path, method: :delete) do |f| %>
+    <%= f.submit 'Cerrar sesión', class: 'btn btn-danger' %>
+  <% end %>
+<% end %>

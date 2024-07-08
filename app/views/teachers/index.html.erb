@@ -1,8 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Teachers</h1>
-
-<%= link_to "Volver al home", pages_home_path, class: "btn btn-primary" %>
+<h1>Profesores</h1>
+<%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %>
 
 <div id="teachers">
   <% @teachers.each do |teacher| %>
@@ -13,4 +12,6 @@
   <% end %>
 </div>
 
-<%= link_to "New teacher", new_teacher_path %>
+<%= link_to "Nuevo profesor", new_teacher_path %>
+<hr>
+
