@@ -1,5 +1,5 @@
 class LoungesController < ApplicationController
-  before_action :set_lounge, only: %i[ show edit update destroy ]
+  before_action :set_lounge, only: [:show, :edit, :update, :destroy]
 
   # GET /lounges or /lounges.json
   def index
@@ -8,6 +8,7 @@ class LoungesController < ApplicationController
 
   # GET /lounges/1 or /lounges/1.json
   def show
+    @lessons = @lounge.lessons
   end
 
   # GET /lounges/new

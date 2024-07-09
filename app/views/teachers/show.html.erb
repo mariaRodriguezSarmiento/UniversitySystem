@@ -3,8 +3,18 @@
 <%= render @teacher %>
 <p>
   <strong>Created by:</strong>
-  <%= @student.teacher.full_name %>
+  <%= @teacher.user.full_name %>
 </p>
+
+<h1>Clases del Profesor <%= @teacher.full_name %></h1>
+
+<ul>
+  <% @lessons.each do |lesson| %>
+    <li>
+      <%= lesson.name %> - <%= lesson.start_date %> a <%= lesson.end_date %> (Horario: <%= lesson.start_time.strftime('%H:%M') %> a <%= lesson.end_time.strftime('%H:%M') %>)
+    </li>
+  <% end %>
+</ul>
 
 <div>
   <%= link_to "Edit this teacher", edit_teacher_path(@teacher) %> |

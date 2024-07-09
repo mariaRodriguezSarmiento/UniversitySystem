@@ -9,7 +9,9 @@ class User < ApplicationRecord
   has_many :lessons
   
   validates :document_number, presence: true, numericality: { only_integer: true }, uniqueness: true
-  validates :first_name, :last_name, :password, presence: true  
+  validates :password, presence: true  
+  validates :first_name, presence: true, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }
+  validates :last_name, presence: true, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }
 
 
   def full_name

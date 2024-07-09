@@ -30,15 +30,16 @@
     <%= form.label :end_date, style: "display: block" %>
     <%= form.date_field :end_date %>
   </div>
-
-  <div>
-    <%= form.label :start_time, style: "display: block" %>
-    <%= form.time_field :start_time %>
+  
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.time_select :start_time, {ampm: true, minute_step: 15} %>
   </div>
 
-  <div>
-    <%= form.label :end_time, style: "display: block" %>
-    <%= form.time_field :end_time %>
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.time_select :end_time, {ampm: true, minute_step: 15} %>
+  </div>
   </div>
 
   <div>

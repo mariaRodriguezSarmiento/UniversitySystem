@@ -5,6 +5,16 @@
   <strong>Created by:</strong>
   <%= @lounge.user.full_name %>
 </p>
+
+<h2>Clases en este Salón:</h2>
+<ul>
+  <% @lessons.each do |lesson| %>
+    <li>
+      <%= lesson.name %> - <%= lesson.start_date %> a <%= lesson.end_date %> (Horario: <%= lesson.start_time.strftime('%H:%M') %> a <%= lesson.end_time.strftime('%H:%M') %>)
+    </li>
+  <% end %>
+</ul>
+
 <div>
   <%= link_to "Edit this lounge", edit_lounge_path(@lounge) %> |
   <%= link_to "Back to lounges", lounges_path %>

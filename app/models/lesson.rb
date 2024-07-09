@@ -11,59 +11,26 @@ class Lesson < ApplicationRecord
   validates :end_date, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
-  validate :validate_time_range
-  validate :validate_teacher_schedule
-  validate :validate_lounge_availability
-  validates :teacher_id, presence: true, numericality: { only_integer: true }
-  validate :teacher_exists
-  validate :student_has_no_conflicting_lesson
 
-  MAX_STUDENTS = 30 
+  validate :availability_check
 
   private
+  def availability_check
+    if teacher_id.present? && lounge_id.present?
+      # Query to check for overlapping lessons
+      overlapping_lessons = Lesson.where.not(id: id).where(
+        "(teacher_id = :teacher_id OR lounge_id = :lounge_id) AND " +
+        "((start_time BETWEEN :start_time AND :end_time) OR " +
+        "(end_time BETWEEN :start_time AND :end_time) OR " +
+        "(:start_time BETWEEN start_time AND end_time) OR " +
+        "(:end_time BETWEEN start_time AND end_time))",
+        teacher_id: teacher_id, lounge_id: lounge_id,
+        start_time: start_time, end_time: end_time
+      )
 
-  def validate_time_range
-    if start_time && end_time && start_time >= end_time
-      errors.add(:end_time, "must be after start time")
-    end
-  end
-
-  def validate_teacher_schedule
-    if teacher_id.present? && teacher_has_conflicting_lesson?
-      errors.add(:base, 'Teacher has conflicting lesson schedule')
-    end
-  end
-
-  def teacher_has_conflicting_lesson?
-    overlapping_lessons = teacher.lessons.where.not(id: id)
-                              .where('start_date <= ? AND end_date >= ?', end_date, start_date)
-                              .where('((start_time <= ? AND end_time > ?) OR (start_time < ? AND end_time >= ?))',
-                                     end_time, end_time, start_time, start_time)
-
-    overlapping_lessons.exists?
-  end
-
-  def validate_lounge_availability
-    if lounge_id.present? && lounge_has_conflicting_lesson?
-      errors.add(:base, 'Lounge has conflicting lesson schedule')
-    end
-  end
-
-  def lounge_has_conflicting_lesson?
-    overlapping_lessons = lounge.lessons.where.not(id: id)
-                              .where('start_date <= ? AND end_date >= ?', end_date, start_date)
-                              .where('((start_time <= ? AND end_time > ?) OR (start_time < ? AND end_time >= ?))',
-                                     end_time, end_time, start_time, start_time)
-
-    overlapping_lessons.exists?
-  end
-  def teacher_exists
-    errors.add(:teacher_id, 'does not exist') unless Teacher.exists?(teacher_id)
-  end
-
-  def student_has_no_conflicting_lesson
-    if students.any? { |student| student.has_conflicting_lesson?(self) }
-      errors.add(:base, "A student cannot take more than one lesson at the same time")
+      if overlapping_lessons.exists?
+        errors.add(:base, 'Teacher or lounge is not available during this time')
+      end
     end
   end
 end
