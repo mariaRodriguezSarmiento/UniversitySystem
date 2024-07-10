@@ -9,8 +9,7 @@
       <div class="card">
         <div class="card-body">
           <%= render @student %>
-          
-          <h2 class="card-title">Lessons:</h2>
+          <p class="card-text"><strong>Created by:</strong> <%= @student.user.full_name %></p>          <h2 class="card-title">Lessons:</h2>
           <ul class="list-group">
             <% @student.lessons.each do |lesson| %>
               <li class="list-group-item">
