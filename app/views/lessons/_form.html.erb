@@ -3,8 +3,8 @@
     <div class="col-md-8">
       <%= form_with(model: lesson, class: "needs-validation", novalidate: true) do |form| %>
         <% if lesson.errors.any? %>
-          <div class="alert alert-danger" role="alert">
-            <h4><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h4>
+          <div style="color: red">
+            <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
             <ul>
               <% lesson.errors.each do |error| %>
                 <li><%= error.full_message %></li>
@@ -12,6 +12,7 @@
             </ul>
           </div>
         <% end %>
+
 
         <div class="mb-3">
           <%= form.label :name, "Name", class: "form-label font-weight-bold" %>

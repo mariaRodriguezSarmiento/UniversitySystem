@@ -28,18 +28,13 @@ class LessonsController < ApplicationController
 
   # POST /lessons
   def create
-    puts "**********************************************************************************************"
-    puts "**********************************************************************************************"
-    puts lesson_params[:start_time]
-    puts lesson_params[:end_time] 
-    puts lesson_params[:name]  
-    puts lesson_params
+
     @lesson = current_user.lessons.build(lesson_params)
   
     if @lesson.save
       redirect_to @lesson, notice: 'Lesson was successfully created.'
     else
-      render :new  # Renderiza nuevamente la vista de creación en caso de error
+      render :new 
     end
   end
 

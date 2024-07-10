@@ -17,7 +17,7 @@ class LoungesController < ApplicationController
 
   # GET /lounges/new
   def new
-    @lounge = current_user.lounges.build  # Asocia el nuevo salón con el usuario actual
+    @lounge = current_user.lounges.build
   end
 
   # GET /lounges/1/edit
@@ -53,10 +53,15 @@ class LoungesController < ApplicationController
 
   # DELETE /lounges/1 or /lounges/1.json
   def destroy
-    @lounge.destroy!
+    lessons = Lesson.where(lounge_id: @lounge.id)
+
+    LessonStudent.where(lesson_id: lessons.pluck(:id)).destroy_all
+    
+    lessons.destroy_all
+    @lounge.destroy
 
     respond_to do |format|
-      format.html { redirect_to lounges_url, notice: "Lounge was successfully destroyed." }
+      format.html { redirect_to lounges_url, notice: 'Lounge was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

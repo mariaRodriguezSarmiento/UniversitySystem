@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
-    @student = current_user.students.build  # Asocia el nuevo estudiante con el usuario actual
+    @student = current_user.students.build
   end
 
   # GET /students/1/edit
@@ -51,10 +51,14 @@ class StudentsController < ApplicationController
 
   # DELETE /students/1 or /students/1.json
   def destroy
-    @student.destroy!
+
+    LessonStudent.where(student_id: @student.id).destroy_all
+
+
+    @student.destroy
 
     respond_to do |format|
-      format.html { redirect_to students_url, notice: "Student was successfully destroyed." }
+      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
