@@ -1,12 +1,12 @@
 <p style="color: green"><%= notice %></p>
-
+<h1>Detalles del salón</h1>
 <%= render @lounge %>
 <p>
-  <strong>Created by:</strong>
+  <strong>Creado por:</strong>
   <%= @lounge.user.full_name %>
 </p>
 
-<h2>Clases en este Salón:</h2>
+<h2>Clases en este salón:</h2>
 <ul>
   <% @lessons.each do |lesson| %>
     <li>
@@ -16,8 +16,8 @@
 </ul>
 
 <div>
-  <%= link_to "Edit this lounge", edit_lounge_path(@lounge) %> |
-  <%= link_to "Back to lounges", lounges_path %>
+  <%= link_to "Editar", edit_lounge_path(@lounge) %> |
+  <%= link_to "Volver a la lista de salones", lounges_path %>
 
-  <%= button_to "Destroy this lounge", @lounge, method: :delete %>
+  <%= button_to "Eliminar", @lounge, method: :delete %>
 </div>

@@ -25,11 +25,11 @@ class LessonsController < ApplicationController
   # POST /lessons
   def create
     @lesson = current_user.lessons.build(lesson_params)
-
+  
     if @lesson.save
       redirect_to @lesson, notice: 'Lesson was successfully created.'
     else
-      render :new, status: :unprocessable_entity
+      render :new  # Renderiza nuevamente la vista de creación en caso de error
     end
   end
 

@@ -12,44 +12,44 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :Nombre, style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :code, style: "display: block" %>
+    <%= form.label :Codigo, style: "display: block" %>
     <%= form.text_field :code %>
   </div>
 
   <div>
-    <%= form.label :start_date, style: "display: block" %>
+    <%= form.label :Fecha_inicio, style: "display: block" %>
     <%= form.date_field :start_date %>
   </div>
 
   <div>
-    <%= form.label :end_date, style: "display: block" %>
+    <%= form.label :Fecha_fin, style: "display: block" %>
     <%= form.date_field :end_date %>
   </div>
   
   <div class="field">
-    <%= form.label :start_time %>
+    <%= form.label :Hora_inicio %>
     <%= form.time_select :start_time, {ampm: true, minute_step: 15} %>
   </div>
 
   <div class="field">
-    <%= form.label :end_time %>
+    <%= form.label :Hora_fin %>
     <%= form.time_select :end_time, {ampm: true, minute_step: 15} %>
   </div>
   </div>
 
-  <div>
-    <%= form.label :teacher_id, style: "display: block" %>
-    <%= form.text_field :teacher_id %>
+  <div class="field">
+    <%= form.label :teacher_id %>
+    <%= form.select :teacher_id, options_for_select(Teacher.all.map { |t| [t.full_name, t.id] }), prompt: "Seleccionar Profesor" %>
   </div>
 
-  <div>
-    <%= form.label :lounge_id, style: "display: block" %>
-    <%= form.text_field :lounge_id %>
+  <div class="field">
+    <%= form.label :lounge_id %>
+    <%= form.select :lounge_id, options_for_select(Lounge.all.map { |l| [l.name, l.id] }), prompt: "Seleccionar Salón" %>
   </div>
 
   <div>

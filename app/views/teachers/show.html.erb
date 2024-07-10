@@ -1,12 +1,12 @@
 <p style="color: green"><%= notice %></p>
+<h1>Detalles del Profesor</h1>
 
 <%= render @teacher %>
-<p>
-  <strong>Created by:</strong>
-  <%= @teacher.user.full_name %>
-</p>
 
-<h1>Clases del Profesor <%= @teacher.full_name %></h1>
+<p><strong>Creado por:</strong> <%= @teacher.user.full_name %></p>
+
+
+<h3>Clases del Profesor: <%= @teacher.full_name %></h3>
 
 <ul>
   <% @lessons.each do |lesson| %>
@@ -16,9 +16,8 @@
   <% end %>
 </ul>
 
-<div>
-  <%= link_to "Edit this teacher", edit_teacher_path(@teacher) %> |
-  <%= link_to "Back to teachers", teachers_path %>
+<%= link_to "Editar", edit_teacher_path(@teacher) %> |
+<%= link_to "Volver a la lista de profesores", teachers_path %>
 
-  <%= button_to "Destroy this teacher", @teacher, method: :delete %>
+  <%= button_to "Eliminar", @teacher, method: :delete %>
 </div>

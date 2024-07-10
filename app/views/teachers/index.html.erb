@@ -7,11 +7,12 @@
   <% @teachers.each do |teacher| %>
     <%= render teacher %>
     <p>
-      <%= link_to "Show this teacher", teacher %>
+      <%= link_to "Mostrar este profesor", teacher %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "Nuevo profesor", new_teacher_path %>
+<%= link_to "Crear profesor", new_teacher_path, class: "btn btn-primary" %>
+
 <hr>
 

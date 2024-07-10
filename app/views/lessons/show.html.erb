@@ -1,13 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
+<h1>Detalles de la lección</h1>
+
 <%= render @lesson %>
 <p>
-  <strong>Created by:</strong>
+  <strong>Creado por:</strong>
   <%= @lesson.user.full_name %>
 </p>
 
 <div>
-  <h2>Students Enrolled</h2>
+  <h2>Estudiantes matriculados</h2>
   <% if @students.any? %>
     <ul>
       <% @students.each do |student| %>
@@ -15,14 +17,14 @@
       <% end %>
     </ul>
   <% else %>
-    <p>No students enrolled in this lesson yet.</p>
+    <p>No hay estudiantes matriculados todavia.</p>
   <% end %>
 </div>
 
 <div>
-  <%= link_to "Edit this lesson", edit_lesson_path(@lesson) %> |
-  <%= link_to "Back to lessons", lessons_path %>
-  <%= button_to "Add Student", new_student_lesson_path(@lesson), method: :get %>
+  <%= link_to "Editar", edit_lesson_path(@lesson) %> |
+  <%= link_to "Volver a listado de clases", lessons_path %>
+  <%= button_to "Matricular estudiante", new_student_lesson_path(@lesson), method: :get %>
 
-  <%= button_to "Destroy this lesson", @lesson, method: :delete %>
+  <%= button_to "Eliminar", @lesson, method: :delete %>
 </div>

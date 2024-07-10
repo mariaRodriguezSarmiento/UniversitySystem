@@ -1,13 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Students</h1>
+<h1>Estudiantes</h1>
 <%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %><div id="students">
   <% @students.each do |student| %>
     <%= render student %>
     <p>
-      <%= link_to "Show this student", student %>
+      <%= link_to "Mostrar este estudiante", student %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New student", new_student_path %>
+<%= link_to "Crear estudiante", new_student_path %>
