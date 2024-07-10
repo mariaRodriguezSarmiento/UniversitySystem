@@ -1,9 +1,17 @@
-<h1>Nueva Lección</h1>
-
-<%= render "form", lesson: @lesson %>
-
-<br>
-
-<div>
-  <%= link_to "Volver a listado de lecciones", lessons_path %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>New Lesson</h1>
+        </div>
+        <div class="card-body">
+          <%= render "form", lesson: @lesson %>
+        </div>
+        <div class="card-footer text-center">
+          <%= link_to "Back to lessons", lessons_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

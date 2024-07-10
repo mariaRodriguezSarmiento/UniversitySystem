@@ -1,41 +1,41 @@
 <div id="<%= dom_id lesson %>">
   <p>
-    <strong>Nombre:</strong>
+    <strong>Name:</strong>
     <%= lesson.name %>
   </p>
 
   <p>
-    <strong>Codigo:</strong>
+    <strong>Code:</strong>
     <%= lesson.code %>
   </p>
 
   <p>
-    <strong>Fecha de inicio:</strong>
+    <strong>Start date:</strong>
     <%= lesson.start_date %>
   </p>
 
   <p>
-    <strong>Fecha de fin:</strong>
+    <strong>End date:</strong>
     <%= lesson.end_date %>
   </p>
 
   <p>
-    <strong>Hora de inicio:</strong>
+    <strong>Start time:</strong>
   <%= lesson.start_time.strftime('%H:%M') %>
   </p>
 
   <p>
-    <strong>Hora de fin:</strong>
+    <strong>End time:</strong>
   <%= lesson.end_time.strftime('%H:%M') %>
   </p>
 
   <p>
-    <strong>Profesor:</strong>
+    <strong>Teacher:</strong>
     <%= lesson.teacher_id %>
   </p>
 
   <p>
-    <strong>Salón:</strong>
+    <strong>Lounge:</strong>
     <%= lesson.lounge_id %>
   </p>
 

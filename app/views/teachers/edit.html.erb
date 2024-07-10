@@ -1,10 +1,18 @@
-<h1>Editar profesor</h1>
-
-<%= render "form", teacher: @teacher %>
-
-<br>
-
-<div>
-  <%= link_to "Mostrar profesor", @teacher %> |
-  <%= link_to "Volver a la lista de profesores", teachers_path %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Edit Teacher</h1>
+        </div>
+        <div class="card-body">
+          <%= render "form", teacher: @teacher %>
+        </div>
+        <div class="card-footer text-center">
+          <%= link_to "Back to lessons", teachers_path, class: "btn btn-primary" %>
+          <%= link_to "Show lesson", @teacher, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

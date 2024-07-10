@@ -1,42 +1,57 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="text-center">
+        <div class="alert alert-success" role="alert">
+          <%= notice %>
+        </div>
+        <h1>Students</h1>
+        <%= link_to "Back", pages_home_path, class: "btn btn-primary mb-3" %>
+        <%= link_to "Create Student", new_student_path, class: "btn btn-primary mb-3" %>
 
-<h1>Estudiantes</h1>
-<%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %><div id="students">
-<%= link_to "Crear estudiante", new_student_path %>
+        <div class="card bg-light mb-3">
+          <div class="card-body">
+            <%= form_with(url: students_path, method: "get", class: "form-inline") do %>
+              <div class="form-group mr-2">
+                <%= label_tag :document_number, "Search by document number:" %>
+                <%= text_field_tag :document_number, params[:document_number], class: "form-control", placeholder: "Enter document number" %>
+              </div>
+              <%= submit_tag "Search", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
 
-<%= form_with(url: students_path, method: "get") do %>
-  <div class="field">
-    <%= label_tag :document_number, "Buscar por número de documento:" %>
-    <%= text_field_tag :document_number, params[:document_number], placeholder: "Ingrese número de documento" %>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th>Last Name</th>
+              <th>Document</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @students.each do |student| %>
+              <tr>
+                <td><%= student.first_name %></td>
+                <td><%= student.last_name %></td>
+                <td><%= student.document_number %></td>
+                <td><%= link_to "Show", student, class: "btn btn-primary btn-sm" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="text-center mt-4">
+          <%= form_for(current_user, url: destroy_user_session_path, method: :delete) do |f| %>
+            <%= f.submit 'Log Out', class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <%= submit_tag "Buscar", class: "btn btn-primary" %>
-<% end %>
-<br>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Documento</th>
-      <th></th>
-      </tr>
-  </thead>
-  <tbody>
-    <% @students.each do |student| %>
-      <tr>
-        <td><%= student.first_name %></td>
-        <td><%= student.last_name %></td>
-        <td><%= student.document_number %></td>
-        <td><%= link_to "Mostrar", student, class: "btn btn-primary" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
-  <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Mostrar este estudiante", student %>
-    </p>
-  <% end %>
 </div>

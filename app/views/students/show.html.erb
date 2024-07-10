@@ -1,22 +1,31 @@
-<p style="color: green"><%= notice %></p>
-<h1> Detalles del Estudiante</h1>
-<%= render @student %>
-<p>
-  <strong>Creado por:</strong>
-  <%= @student.user.full_name %>
-</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="text-center">
+        <p class="alert alert-success"><%= notice %></p>
+        <h1>Student Details</h1>
+      </div>
 
-<h2>Lecciones:</h2>
-<ul>
-  <% @student.lessons.each do |lesson| %>
-    <li>
-    <%= lesson.name %> - <%= lesson.start_date %> a <%= lesson.end_date %> (Horario: <%= lesson.start_time.strftime('%H:%M') %> a <%= lesson.end_time.strftime('%H:%M') %>)    </li>
-  <% end %>
-</ul> 
+      <div class="card">
+        <div class="card-body">
+          <%= render @student %>
+          
+          <h2 class="card-title">Lessons:</h2>
+          <ul class="list-group">
+            <% @student.lessons.each do |lesson| %>
+              <li class="list-group-item">
+                <%= lesson.name %> - <%= lesson.start_date %> to <%= lesson.end_date %> (Schedule: <%= lesson.start_time.strftime('%H:%M') %> to <%= lesson.end_time.strftime('%H:%M') %>)
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
 
-<div>
-  <%= link_to "Editar", edit_student_path(@student) %> |
-  <%= link_to "Volver a la lista de estudiantes", students_path %>
-
-  <%= button_to "Eliminar", @student, method: :delete %>
+      <div class="text-center mt-3">
+        <%= link_to "Edit", edit_student_path(@student), class: "btn btn-primary mr-2" %> |
+        <%= link_to "Back to Students List", students_path, class: "btn btn-secondary mr-2" %>
+        <%= button_to "Delete", @student, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
 </div>

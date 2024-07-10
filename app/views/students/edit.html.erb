@@ -1,10 +1,18 @@
-<h1>Editar estudiante</h1>
-
-<%= render "form", student: @student %>
-
-<br>
-
-<div>
-  <%= link_to "Mostrar estudiante", @student %> |
-  <%= link_to "Volver a la lista de estudiantes", students_path %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Edit Student</h1>
+        </div>
+        <div class="card-body">
+          <%= render "form", student: @student %>
+        </div>
+        <div class="card-footer text-center">
+          <%= link_to "Back to lessons", student_path, class: "btn btn-primary" %>
+          <%= link_to "Show lesson", @student, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

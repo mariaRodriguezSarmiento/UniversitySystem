@@ -1,37 +1,47 @@
-<%= form_with(model: teacher) do |form| %>
-  <% if teacher.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <%= form_with(model: teacher) do |form| %>
 
-      <ul>
-        <% teacher.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% if teacher.errors.any? %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</strong>
+            <ul class="mb-0">
+              <% teacher.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <div class="form-group">
+          <%= form.label :first_name, "First Name", class: "font-weight-bold" %>
+          <%= form.text_field :first_name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :last_name, "Last Name", class: "font-weight-bold" %>
+          <%= form.text_field :last_name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :document_number, "Document Number", class: "font-weight-bold" %>
+          <%= form.number_field :document_number, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :email, "Email", class: "font-weight-bold" %>
+          <%= form.email_field :email, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :Nombre, style: "display: block" %>
-    <%= form.text_field :first_name %>
   </div>
-
-  <div>
-    <%= form.label :Apellido, style: "display: block" %>
-    <%= form.text_field :last_name %>
-  </div>
-
-  <div>
-    <%= form.label :Documento, style: "display: block" %>
-    <%= form.number_field :document_number %>
-  </div>
-
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

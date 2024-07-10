@@ -1,30 +1,41 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="text-center">
+        <p style="color: green;"><%= notice %></p>
+        <h1>Lesson Details</h1>
+      </div>
 
-<h1>Detalles de la lección</h1>
+      <div class="card mb-3">
+        <div class="card-body">
+          <%= render @lesson %>
+          <p><strong>Created by:</strong> <%= @lesson.user.full_name %></p>
+        </div>
+      </div>
 
-<%= render @lesson %>
-<p>
-  <strong>Creado por:</strong>
-  <%= @lesson.user.full_name %>
-</p>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Enrolled Students</h5>
+        </div>
+        <div class="card-body">
+          <% if @students.any? %>
+            <ul class="list-group">
+              <% @students.each do |student| %>
+                <li class="list-group-item"><%= student.full_name %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted">No students enrolled yet.</p>
+          <% end %>
+        </div>
+      </div>
 
-<div>
-  <h2>Estudiantes matriculados</h2>
-  <% if @students.any? %>
-    <ul>
-      <% @students.each do |student| %>
-        <li><%= student.full_name %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No hay estudiantes matriculados todavia.</p>
-  <% end %>
-</div>
-
-<div>
-  <%= link_to "Editar", edit_lesson_path(@lesson) %> |
-  <%= link_to "Volver a listado de clases", lessons_path %>
-  <%= button_to "Matricular estudiante", new_student_lesson_path(@lesson), method: :get %>
-
-  <%= button_to "Eliminar", @lesson, method: :delete %>
+      <div class="text-center mt-3">
+        <%= link_to "Edit", edit_lesson_path(@lesson), class: "btn btn-primary mr-2" %>
+        <%= link_to "Back to Lessons List", lessons_path, class: "btn btn-secondary mr-2" %>
+        <%= button_to "Enroll Student", new_student_lesson_path(@lesson), method: :get, class: "btn btn-primary mr-2" %>
+        <%= button_to "Delete", @lesson, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
 </div>

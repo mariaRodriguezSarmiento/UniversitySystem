@@ -1,9 +1,17 @@
-<h1>Nuevo profesor</h1>
-
-<%= render "form", teacher: @teacher %>
-
-<br>
-
-<div>
-  <%= link_to "Volver a profesores", teachers_path %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>New Teacher</h1>
+        </div>
+        <div class="card-body">
+          <%= render "form", teacher: @teacher %>
+        </div>
+        <div class="card-footer text-center">
+          <%= link_to "Back to lessons", teachers_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

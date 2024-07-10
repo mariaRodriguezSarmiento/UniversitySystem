@@ -8,7 +8,7 @@ class Lounge < ApplicationRecord
     
       def code_format
         if code.to_s =~ /\D/
-          errors.add(:code, "debe contener solo números")
+          errors.add(:code, "only allows numbers")
         end
       end
 

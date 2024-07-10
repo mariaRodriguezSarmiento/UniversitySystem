@@ -1,18 +1,62 @@
-<h1>Inicio</h1>
-<p>Sistema de gestión universitario</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="text-center">
+        <h1>Home</h1>
+        <p class="lead">University Management System</p>
+      </div>
 
-<%= link_to "Profesores", teachers_path, class: "btn btn-primary" %>
-<hr>
-<%= link_to "Estudiantes", students_path, class: "btn btn-primary" %>
-<hr>
-<%= link_to "Salones", lounges_path, class: "btn btn-primary" %>
-<hr>
-<%= link_to "Clases", lessons_path, class: "btn btn-primary" %>
+      <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Teachers</h5>
+              <p class="card-text">View and manage teachers.</p>
+              <%= link_to "Explore", teachers_path, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
 
-<br>
-<hr>
-<% if user_signed_in? %>
-  <%= form_for(current_user, url: destroy_user_session_path, method: :delete) do |f| %>
-    <%= f.submit 'Cerrar sesión', class: 'btn btn-danger' %>
-  <% end %>
-<% end %>
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Students</h5>
+              <p class="card-text">View and manage students.</p>
+              <%= link_to "Explore", students_path, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Lounges</h5>
+              <p class="card-text">View and manage lounges.</p>
+              <%= link_to "Explore", lounges_path, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Lessons</h5>
+              <p class="card-text">View and manage lessons.</p>
+              <%= link_to "Explore", lessons_path, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <% if user_signed_in? %>
+        <div class="text-center mt-4">
+          <%= form_for(current_user, url: destroy_user_session_path, method: :delete) do |f| %>
+            <%= f.submit 'Log Out', class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

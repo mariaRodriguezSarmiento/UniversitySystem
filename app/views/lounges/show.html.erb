@@ -1,23 +1,35 @@
-<p style="color: green"><%= notice %></p>
-<h1>Detalles del salón</h1>
-<%= render @lounge %>
-<p>
-  <strong>Creado por:</strong>
-  <%= @lounge.user.full_name %>
-</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="text-center">
+        <p class="alert alert-success"><%= notice %></p>
+        <h1>Lounge Details</h1>
+      </div>
 
-<h2>Clases en este salón:</h2>
-<ul>
-  <% @lessons.each do |lesson| %>
-    <li>
-      <%= lesson.name %> - <%= lesson.start_date %> a <%= lesson.end_date %> (Horario: <%= lesson.start_time.strftime('%H:%M') %> a <%= lesson.end_time.strftime('%H:%M') %>)
-    </li>
-  <% end %>
-</ul>
+      <div class="card">
+        <div class="card-body">
+          <%= render @lounge %>
+          
+          <p>
+            <strong>Created by:</strong> <%= @lounge.user.full_name %>
+          </p>
 
-<div>
-  <%= link_to "Editar", edit_lounge_path(@lounge) %> |
-  <%= link_to "Volver a la lista de salones", lounges_path %>
+          <h2>Classes in this lounge:</h2>
+          <ul class="list-group">
+            <% @lessons.each do |lesson| %>
+              <li class="list-group-item">
+                <%= lesson.name %> - <%= lesson.start_date %> to <%= lesson.end_date %> (Schedule: <%= lesson.start_time.strftime('%H:%M') %> to <%= lesson.end_time.strftime('%H:%M') %>)
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
 
-  <%= button_to "Eliminar", @lounge, method: :delete %>
+      <div class="text-center mt-3">
+        <%= link_to "Edit", edit_lounge_path(@lounge), class: "btn btn-primary mr-2" %> |
+        <%= link_to "Back to Lounges List", lounges_path, class: "btn btn-secondary mr-2" %>
+        <%= button_to "Delete", @lounge, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
 </div>

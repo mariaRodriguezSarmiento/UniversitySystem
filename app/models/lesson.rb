@@ -18,7 +18,7 @@ class Lesson < ApplicationRecord
   validate :teacher_and_lounge_availability
     def code_format
       if code.to_s =~ /\D/
-        errors.add(:code, "debe contener solo números")
+        errors.add(:code, "only allows numbers")
       end
     end
 
@@ -26,7 +26,7 @@ class Lesson < ApplicationRecord
       return if start_date.blank? || end_date.blank?
   
       if end_date < start_date
-        errors.add(:end_date, "no puede ser anterior a la fecha de inicio")
+        errors.add(:end_date, "cannot be before the start date")
       end
     end
   
@@ -34,7 +34,7 @@ class Lesson < ApplicationRecord
       return if start_date.blank?
   
       if start_date < Date.today
-        errors.add(:start_date, "no puede ser anterior a la fecha actual")
+        errors.add(:start_date, "cannot be earlier than the current date")
       end
     end
 
@@ -42,13 +42,13 @@ class Lesson < ApplicationRecord
       return if start_time.blank? || end_time.blank?
   
       if end_time <= start_time
-        errors.add(:end_time, "debe ser posterior a la hora de inicio")
+        errors.add(:end_time, "must be after the start time")
       end
     end
 
     def teacher_and_lounge_availability
       if Lesson.where( '(? <= end_date OR ? >= start_date OR ? < end_time OR ? > start_time) AND (teacher_id = ? OR lounge_id = ?)',end_date,start_date,end_time,start_time,teacher_id,lounge_id).exists?
-        errors.add(:base, "debe empezar con mayúscula")
+        errors.add(:base, "the teacher or the lounge is not available")
       end
     end
 end

@@ -1,78 +1,57 @@
-<p style="color: green"><%= notice %></p>
-<style>
-  .lounge-card {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-  }
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="text-center">
+        <div class="alert alert-success" role="alert">
+          <p style="color: green;"><%= notice %></p>
+        </div>
+        <h1>Lounges</h1>
+        <%= link_to "Back", pages_home_path, class: "btn btn-primary mb-3" %>
+        <%= link_to "Create Lounge", new_lounge_path, class: "btn btn-primary mb-3" %>
 
-  .lounge-card p {
-    margin-bottom: 0;
-  }
-
-  .lounge-card a {
-    display: inline-block;
-    margin-top: 5px;
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-  }
-
-  .lounge-card a:hover {
-    background-color: #0056b3;
-  }
-</style>
-
-<h1>Salones</h1>
-<%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %><div id="lounges">
-<%= link_to "Crear salon", new_lounge_path %>
-<br>
-<!-- app/views/lounges/index.html.erb -->
-
-<h1>Lista de Salones</h1>
-
-<%= form_with(url: lounges_path, method: "get") do %>
-  <div class="field">
-    <%= label_tag :code, "Buscar por código:" %>
-    <%= text_field_tag :code, params[:code], placeholder: "Ingrese código del salón" %>
-  </div>
-  <%= submit_tag "Buscar", class: "btn btn-primary" %>
-<% end %>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Código</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @lounges.each do |lounge| %>
-      <tr>
-        <td><%= lounge.name %></td>
-        <td><%= lounge.code %></td>
-        <td><%= link_to "Mostrar", lounge, class: "btn btn-primary" %></td>      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-<div class="row">
-  <% @lounges.each do |lounge| %>
-    <div class="col-md-4 mb-3">
-      <div class="lounge-card">
-        <%= render lounge %>
-        <p>
-          <%= link_to "Mostrar este salón", lounge, class: "btn btn-primary" %>
-        </p>
+        <div class="card bg-light mb-3">
+          <div class="card-body">
+            <%= form_with(url: lounges_path, method: "get", class: "form-inline") do %>
+              <div class="form-group mr-2">
+                <%= label_tag :code, "Search by code:" %>
+                <%= text_field_tag :code, params[:code], class: "form-control", placeholder: "Enter lounge code" %>
+              </div>
+              <%= submit_tag "Search", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
       </div>
-    </div>
-  <% end %>
-</div>
-</div>
 
+      <h2>List of Lounges</h2>
+
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th>Code</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @lounges.each do |lounge| %>
+              <tr>
+                <td><%= lounge.name %></td>
+                <td><%= lounge.code %></td>
+                <td><%= link_to "Show", lounge, class: "btn btn-primary btn-sm" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      
+      <% if user_signed_in? %>
+        <div class="text-center mt-4">
+          <%= form_for(current_user, url: destroy_user_session_path, method: :delete) do |f| %>
+            <%= f.submit 'Log Out', class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

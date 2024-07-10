@@ -1,23 +1,37 @@
-<p style="color: green"><%= notice %></p>
-<h1>Detalles del Profesor</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="text-center">
+        <p class="alert alert-success"><%= notice %></p>
+        <h1>Teacher Details</h1>
+      </div>
 
-<%= render @teacher %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <%= render @teacher %>
+          <p class="card-text"><strong>Created by:</strong> <%= @teacher.user.full_name %></p>
+        </div>
+      </div>
 
-<p><strong>Creado por:</strong> <%= @teacher.user.full_name %></p>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Teacher's Classes: <%= @teacher.full_name %></h3>
 
+          <ul class="list-group list-group-flush">
+            <% @lessons.each do |lesson| %>
+              <li class="list-group-item">
+                <%= lesson.name %> - <%= lesson.start_date %> to <%= lesson.end_date %> (Schedule: <%= lesson.start_time.strftime('%H:%M') %> to <%= lesson.end_time.strftime('%H:%M') %>)
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
 
-<h3>Clases del Profesor: <%= @teacher.full_name %></h3>
-
-<ul>
-  <% @lessons.each do |lesson| %>
-    <li>
-      <%= lesson.name %> - <%= lesson.start_date %> a <%= lesson.end_date %> (Horario: <%= lesson.start_time.strftime('%H:%M') %> a <%= lesson.end_time.strftime('%H:%M') %>)
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to "Editar", edit_teacher_path(@teacher) %> |
-<%= link_to "Volver a la lista de profesores", teachers_path %>
-
-  <%= button_to "Eliminar", @teacher, method: :delete %>
+      <div class="text-center mt-3">
+        <%= link_to "Edit", edit_teacher_path(@teacher), class: "btn btn-primary mr-2" %>
+        <%= link_to "Back to Teachers List", teachers_path, class: "btn btn-secondary mr-2" %>
+        <%= button_to "Delete", @teacher, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
 </div>

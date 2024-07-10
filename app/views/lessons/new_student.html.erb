@@ -1,13 +1,39 @@
-<!-- app/views/lessons/new_student.html.erb -->
-<h1>Add Student to Lesson: <%= @lesson.name %></h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">Add Student to Lesson: <%= @lesson.name %></h1>
 
-<%= form_with(model: [@lesson, @lesson_student], url: create_student_lesson_path(@lesson), method: :post) do |form| %>
-  <div class="field">
-    <%= form.label :student_id, "Select Student" %><br>
-    <%= form.collection_select :student_id, @students, :id, :full_name, prompt: "Select Student" %>
-  </div>
+          <%= form_with(model: [@lesson, @lesson_student], url: create_student_lesson_path(@lesson), method: :post, class: "needs-validation", novalidate: true) do |form| %>
+            <% if @lesson_student.errors.any? %>
+              <div class="alert alert-danger" role="alert">
+                <h4><%= pluralize(@lesson_student.errors.count, "error") %> prohibited this student from being added:</h4>
+                <ul>
+                  <% @lesson_student.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
-  <div class="actions">
-    <%= form.submit 'Add Student' %>
+            <div class="mb-3">
+              <%= form.label :student_id, "Select Student", class: "form-label" %><br>
+              <%= form.collection_select :student_id, @students, :id, :full_name, { prompt: "Select Student" }, { class: "form-control", required: true } %>
+              <div class="invalid-feedback">
+                Please select a student.
+              </div>
+            </div>
+
+            <%= form.submit 'Add Student', class: "btn btn-primary" %>
+
+          <% end %>
+
+          <div class="mt-3">
+            <%= link_to "Back to Lesson Details", lesson_path(@lesson), class: "btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
