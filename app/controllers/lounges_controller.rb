@@ -4,6 +4,10 @@ class LoungesController < ApplicationController
   # GET /lounges or /lounges.json
   def index
     @lounges = Lounge.all
+
+    if params[:code].present?
+      @lounges = @lounges.where(code: params[:code])
+    end
   end
 
   # GET /lounges/1 or /lounges/1.json

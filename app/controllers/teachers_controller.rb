@@ -4,7 +4,12 @@ class TeachersController < ApplicationController
   # GET /teachers or /teachers.json
   def index
     @teachers = Teacher.all
+
+    if params[:document_number].present?
+      @teachers = @teachers.where(document_number: params[:document_number])
+    end
   end
+
 
   # GET /teachers/1 or /teachers/1.json
   def show

@@ -2,6 +2,37 @@
 
 <h1>Estudiantes</h1>
 <%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %><div id="students">
+<%= link_to "Crear estudiante", new_student_path %>
+
+<%= form_with(url: students_path, method: "get") do %>
+  <div class="field">
+    <%= label_tag :document_number, "Buscar por número de documento:" %>
+    <%= text_field_tag :document_number, params[:document_number], placeholder: "Ingrese número de documento" %>
+  </div>
+  <%= submit_tag "Buscar", class: "btn btn-primary" %>
+<% end %>
+<br>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Documento</th>
+      <th></th>
+      </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.first_name %></td>
+        <td><%= student.last_name %></td>
+        <td><%= student.document_number %></td>
+        <td><%= link_to "Mostrar", student, class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
   <% @students.each do |student| %>
     <%= render student %>
     <p>
@@ -9,5 +40,3 @@
     </p>
   <% end %>
 </div>
-
-<%= link_to "Crear estudiante", new_student_path %>

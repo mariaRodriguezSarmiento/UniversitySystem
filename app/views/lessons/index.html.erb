@@ -2,8 +2,37 @@
 
 <h1>Lecciones</h1>
 
-<%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %>
+<%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %><br>
+<%= link_to "Crear lección", new_lesson_path %>
+<br>
 
+<%= form_with(url: lessons_path, method: "get") do %>
+  <div class="field">
+    <%= label_tag :code, "Buscar por código:" %>
+    <%= text_field_tag :code, params[:code], placeholder: "Ingrese código de la lección" %>
+  </div>
+  <%= submit_tag "Buscar", class: "btn btn-primary" %>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Código</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lessons.each do |lesson| %>
+      <tr>
+        <td><%= lesson.name %></td>
+        <td><%= lesson.code %></td>
+        <td><%= link_to "Mostrar", lesson, class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
 <div id="lessons">
   <% @lessons.each do |lesson| %>
     <%= render lesson %>
@@ -13,4 +42,4 @@
   <% end %>
 </div>
 
-<%= link_to "Crear lección", new_lesson_path %>
+

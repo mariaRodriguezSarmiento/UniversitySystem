@@ -6,6 +6,10 @@ class LessonsController < ApplicationController
   # GET /lessons
   def index
     @lessons = Lesson.all
+
+    if params[:code].present?
+      @lessons = @lessons.where(code: params[:code])
+    end
   end
 
   # GET /lessons/1
@@ -24,6 +28,12 @@ class LessonsController < ApplicationController
 
   # POST /lessons
   def create
+    puts "**********************************************************************************************"
+    puts "**********************************************************************************************"
+    puts lesson_params[:start_time]
+    puts lesson_params[:end_time] 
+    puts lesson_params[:name]  
+    puts lesson_params
     @lesson = current_user.lessons.build(lesson_params)
   
     if @lesson.save

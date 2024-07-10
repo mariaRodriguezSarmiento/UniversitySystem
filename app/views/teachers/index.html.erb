@@ -1,8 +1,41 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Profesores</h1>
-<%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %>
-
+<%= link_to "Regresar", pages_home_path, class: "btn btn-primary" %> <br>
+<%= link_to "Crear profesor", new_teacher_path, class: "btn btn-primary" %>
+<br>
+<%= form_with(url: teachers_path, method: "get") do %>
+  <div class="field">
+    <%= label_tag :document_number, "Buscar por número de documento:" %>
+    <%= text_field_tag :document_number, params[:document_number], placeholder: "Ingrese número de documento" %>
+  </div>
+  <%= submit_tag "Buscar", class: "btn btn-primary" %>
+<% end %>
+<br>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Documento</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teachers.each do |teacher| %>
+      <tr>
+        <td><%= teacher.first_name %></td>
+        <td><%= teacher.last_name %></td>
+        <td><%= teacher.document_number %></td>
+        <td><%= teacher.email %></td>
+        <td><%= link_to "Mostrar", teacher, class: "btn btn-primary" %></td>
+        <!-- Agregar más columnas según la estructura de tu modelo Teacher -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
 <div id="teachers">
   <% @teachers.each do |teacher| %>
     <%= render teacher %>
@@ -12,7 +45,7 @@
   <% end %>
 </div>
 
-<%= link_to "Crear profesor", new_teacher_path, class: "btn btn-primary" %>
+
 
 <hr>
 

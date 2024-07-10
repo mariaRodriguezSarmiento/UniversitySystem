@@ -4,6 +4,9 @@ class StudentsController < ApplicationController
   # GET /students or /students.json
   def index
     @students = Student.all
+    if params[:document_number].present?
+      @students = @students.where(document_number: params[:document_number])
+    end
   end
 
   # GET /students/1 or /students/1.json

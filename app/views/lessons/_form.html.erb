@@ -1,58 +1,84 @@
-<%= form_with(model: lesson) do |form| %>
-  <% if lesson.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <%= form_with(model: lesson, class: "needs-validation", novalidate: true) do |form| %>
+        <% if lesson.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
 
-      <ul>
-        <% lesson.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+            <ul>
+              <% lesson.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+        <div class="mb-3">
+          <%= form.label :name, "Nombre", class: "form-label" %>
+          <%= form.text_field :name, class: "form-control", required: true %>
+          <div class="invalid-feedback">
+            Please enter a name for the lesson.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :code, "Código", class: "form-label" %>
+          <%= form.text_field :code, class: "form-control", required: true %>
+          <div class="invalid-feedback">
+            Please enter a code for the lesson.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :start_date, "Fecha de inicio", class: "form-label" %>
+          <%= form.date_field :start_date, class: "form-control", required: true %>
+          <div class="invalid-feedback">
+            Please enter a start date for the lesson.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :end_date, "Fecha de fin", class: "form-label" %>
+          <%= form.date_field :end_date, class: "form-control", required: true %>
+          <div class="invalid-feedback">
+            Please enter an end date for the lesson.
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :start_time, "Hora de inicio", class: "form-label" %>
+          <%= form.time_field :start_time, class: "form-control", required: true %>
+          <div class="invalid-feedback">
+            Please enter a start time for the lesson.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :end_time, "Hora de fin", class: "form-label" %>
+          <%= form.time_field :end_time, class: "form-control", required: true %>
+          <div class="invalid-feedback">
+            Please enter an end time for the lesson.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :teacher_id, "Profesor", class: "form-label" %>
+          <%= form.select :teacher_id, options_for_select(Teacher.all.map { |t| [t.full_name, t.id] }), { prompt: "Seleccionar Profesor" }, class: "form-select", required: true %>
+          <div class="invalid-feedback">
+            Please select a teacher for the lesson.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :lounge_id, "Salón", class: "form-label" %>
+          <%= form.select :lounge_id, options_for_select(Lounge.all.map { |l| [l.name, l.id] }), { prompt: "Seleccionar Salón" }, class: "form-select", required: true %>
+          <div class="invalid-feedback">
+            Please select a lounge for the lesson.
+          </div>
+        </div>
+
+        <%= form.submit "Guardar", class: "btn btn-primary" %>
+      <% end %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :Nombre, style: "display: block" %>
-    <%= form.text_field :name %>
   </div>
-
-  <div>
-    <%= form.label :Codigo, style: "display: block" %>
-    <%= form.text_field :code %>
-  </div>
-
-  <div>
-    <%= form.label :Fecha_inicio, style: "display: block" %>
-    <%= form.date_field :start_date %>
-  </div>
-
-  <div>
-    <%= form.label :Fecha_fin, style: "display: block" %>
-    <%= form.date_field :end_date %>
-  </div>
-  
-  <div class="field">
-    <%= form.label :Hora_inicio %>
-    <%= form.time_select :start_time, {ampm: true, minute_step: 15} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Hora_fin %>
-    <%= form.time_select :end_time, {ampm: true, minute_step: 15} %>
-  </div>
-  </div>
-
-  <div class="field">
-    <%= form.label :teacher_id %>
-    <%= form.select :teacher_id, options_for_select(Teacher.all.map { |t| [t.full_name, t.id] }), prompt: "Seleccionar Profesor" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :lounge_id %>
-    <%= form.select :lounge_id, options_for_select(Lounge.all.map { |l| [l.name, l.id] }), prompt: "Seleccionar Salón" %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

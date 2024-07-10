@@ -47,24 +47,8 @@ class Lesson < ApplicationRecord
     end
 
     def teacher_and_lounge_availability
-      if teacher && lounge && overlaps_with_existing_lessons?
-        errors.add(:base, "El profesor o el salón ya están ocupados en ese horario")
+      if Lesson.where( '(? <= end_date OR ? >= start_date OR ? < end_time OR ? > start_time) AND (teacher_id = ? OR lounge_id = ?)',end_date,start_date,end_time,start_time,teacher_id,lounge_id).exists?
+        errors.add(:base, "debe empezar con mayúscula")
       end
-    end
-  
-    private
-  
-    def overlaps_with_existing_lessons?
-      if persisted?
-        existing_lessons = Lesson.where.not(id: id)
-      else
-        existing_lessons = Lesson.all
-      end
-  
-      existing_lessons.where(
-        '(? <= end_time) AND (? >= start_time) AND teacher_id = ? OR lounge_id = ?',
-        start_time, end_time,
-        teacher_id, lounge_id
-      ).exists?
     end
 end
